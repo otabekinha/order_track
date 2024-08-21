@@ -1,9 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:order_track/components/login_button.dart';
-import 'package:order_track/components/login_textfield.dart';
+import 'package:order_track/components/custom_button.dart';
+import 'package:order_track/components/custom_textfield.dart';
+import 'package:order_track/screens/pos_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _passwordController = TextEditingController();
+  final String loginPassword = '123123';
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _onLoginPressed() {
+    final enteredPassword = _passwordController.text;
+    _passwordController.clear();
+
+    if (enteredPassword.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please enter a password'),
+        ),
+      );
+    } else if (enteredPassword == loginPassword) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const POSScreen(),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Incorrect password. Please try again.'),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,13 +109,16 @@ class LoginScreen extends StatelessWidget {
                   'Effortlessly manage & track orders from customers to the kitchen with real-time updates.',
                 ),
                 const SizedBox(height: 20),
-                const LoginTextField(),
+                CustomTextField(
+                  hintText: 'Password',
+                  obsecureText: true,
+                  icon: Icons.lock,
+                  controller: _passwordController,
+                ),
                 const SizedBox(height: 20),
-                const Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    LoginButton(),
-                  ],
+                CustomButton(
+                  text: 'Get started',
+                  onPressed: _onLoginPressed,
                 ),
               ],
             ),

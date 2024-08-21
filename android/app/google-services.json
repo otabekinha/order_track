@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "104650394084",
+    "project_id": "track-order-2468c",
+    "storage_bucket": "track-order-2468c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104650394084:android:86ce3413d0527b4dd0dff1",
+        "android_client_info": {
+          "package_name": "com.example.order_track"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAINqHA4KKZMVTI-bDha9jAUUGXFfdS0Rk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
