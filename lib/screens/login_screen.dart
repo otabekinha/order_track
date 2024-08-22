@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:order_track/components/custom_button.dart';
 import 'package:order_track/components/custom_textfield.dart';
+import 'package:order_track/screens/kds_screen.dart';
 import 'package:order_track/screens/pos_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -34,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const POSScreen(),
+          builder: (context) => const KDSScreen(),
         ),
       );
     } else {
