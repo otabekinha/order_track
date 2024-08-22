@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
-    this.icon,
+    this.prefixIcon,
     this.textInputType,
+    this.suffixIcon,
     required this.controller,
     required this.hintText,
     required this.obsecureText,
   });
 
   final TextEditingController controller;
-  final IconData? icon;
+  final IconData? prefixIcon;
+  final IconButton? suffixIcon;
   final TextInputType? textInputType;
   final String hintText;
   final bool obsecureText;
@@ -22,13 +24,14 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       obscureText: obsecureText,
       decoration: InputDecoration(
+        suffixIcon: suffixIcon,
         contentPadding: const EdgeInsets.symmetric(
           vertical: 10,
           horizontal: 16,
         ),
-        prefixIcon: icon != null
+        prefixIcon: prefixIcon != null
             ? Icon(
-                icon,
+                prefixIcon,
                 color: Colors.grey.shade600,
                 size: 20,
               )
