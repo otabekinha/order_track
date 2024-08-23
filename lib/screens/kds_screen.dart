@@ -76,29 +76,43 @@ class _KDSScreenState extends State<KDSScreen> {
             icon: const Icon(Icons.more_vert),
             itemBuilder: (context) => [
               PopupMenuItem(
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    foregroundColor: Colors.black,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.black,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      _toggleOrderStatus(orderId, status);
+                    },
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        status == 'completed'
+                            ? 'Mark as Pending'
+                            : 'Mark as Completed',
+                      ),
+                    ),
                   ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                    _toggleOrderStatus(orderId, status);
-                  },
-                  child: Text(status == 'completed'
-                      ? 'Mark as Pending'
-                      : 'Mark as Completed'),
                 ),
               ),
               PopupMenuItem(
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    foregroundColor: Colors.red,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.red,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      _deleteOrder(orderId);
+                    },
+                    child: const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text('Delete'),
+                    ),
                   ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                    _deleteOrder(orderId);
-                  },
-                  child: const Text('Delete'),
                 ),
               ),
             ],

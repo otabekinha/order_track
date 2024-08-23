@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:order_track/components/custom_button.dart';
 import 'package:order_track/components/custom_textfield.dart';
 import 'package:order_track/screens/kds_screen.dart';
+import 'package:order_track/state/login_provider.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,7 +15,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final String loginPassword = '123123';
-  bool _isPasswordVisible = false;
 
   @override
   void dispose() {
@@ -45,12 +46,6 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
     }
-  }
-
-  void _togglePasswordVisibility() {
-    setState(() {
-      _isPasswordVisible = !_isPasswordVisible;
-    });
   }
 
   @override
@@ -116,23 +111,27 @@ class _LoginScreenState extends State<LoginScreen> {
                   'Effortlessly manage & track orders from customers to the kitchen with real-time updates.',
                 ),
                 const SizedBox(height: 20),
-                CustomTextField(
-                  hintText: 'Password',
-                  obsecureText: !_isPasswordVisible,
-                  prefixIcon: Icons.lock,
-                  controller: _passwordController,
-                  suffixIcon: IconButton(
-                    style: IconButton.styleFrom(
-                      iconSize: 20,
-                      foregroundColor: Colors.grey.shade600,
-                    ),
-                    onPressed: _togglePasswordVisibility,
-                    icon: Icon(
-                      _isPasswordVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off,
-                    ),
-                  ),
+                Consumer<LoginProvider>(
+                  builder: (context, loginProvider, child) {
+                    return CustomTextField(
+                      hintText: 'Password',
+                      obsecureText: !loginProvider.isPasswordVisible,
+                      prefixIcon: Icons.lock,
+                      controller: _passwordController,
+                      suffixIcon: IconButton(
+                        style: IconButton.styleFrom(
+                          iconSize: 20,
+                          foregroundColor: Colors.grey.shade600,
+                        ),
+                        onPressed: loginProvider.togglePasswordVisibility,
+                        icon: Icon(
+                          loginProvider.isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                      ),
+                    );
+                  },
                 ),
                 const SizedBox(height: 20),
                 CustomButton(
