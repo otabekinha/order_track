@@ -23,16 +23,11 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onLoginPressed() {
+    final loginProvider = context.read<LoginProvider>();
     final enteredPassword = _passwordController.text;
     _passwordController.clear();
 
-    if (enteredPassword.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please enter a password'),
-        ),
-      );
-    } else if (enteredPassword == loginPassword) {
+    if (loginProvider.validatePassword(enteredPassword, loginPassword)) {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -41,8 +36,8 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Incorrect password. Please try again.'),
+        SnackBar(
+          content: Text(loginProvider.errorMessage ?? 'An error occurred'),
         ),
       );
     }
